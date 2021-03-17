@@ -7,9 +7,6 @@ var User = new Schema({
         type: String,
         default: ''
     },
-    gender: {
-        type: String,
-    },
     timezone: {
         type: String,
         default: '',
