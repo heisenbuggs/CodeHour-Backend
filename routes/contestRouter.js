@@ -1,5 +1,6 @@
 const express = require("express");
 const Contests = require("../models/contests");
+const contestList = require("../runner").contestList;
 const verifyUser = require("../authenticate").verifyUser;
 
 const contestRouter = express.Router();
@@ -11,7 +12,7 @@ contestRouter.route("/").get(verifyUser, (req, res, next) => {
       (contest) => {
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
-        res.json("Contests are Visible!!!");
+        res.json(contestList);
       },
       (err) => next(err)
     )
