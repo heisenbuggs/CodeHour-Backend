@@ -9,7 +9,7 @@ const runner = require("../runner");
 const contestRouter = express.Router();
 contestRouter.use(express.json());
 
-var array = codeforces();
+var contestList = runner();
 
 contestRouter.route("/").get(verifyUser, (req, res, next) => {
   Contests.find({})
@@ -17,7 +17,7 @@ contestRouter.route("/").get(verifyUser, (req, res, next) => {
       (contest) => {
         res.statusCode = 200;
         res.setHeader("Content-Type", "application/json");
-        res.json(array);
+        res.json(contestList);
       },
       (err) => next(err)
     )
