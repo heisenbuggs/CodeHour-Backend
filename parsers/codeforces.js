@@ -1,5 +1,9 @@
 const axios = require("axios");
-const { parserErrorHandler } = require("../utils/utils");
+const {
+  parserErrorHandler,
+  getCurrentTimeInSeconds,
+} = require("../utils/utils");
+const contestList = require("../runner").contestList;
 
 const contestPlatform = "Codeforces";
 const codeforcesAPIURL = "http://codeforces.com/api/contest.list";
@@ -12,12 +16,24 @@ const convertToFormat = (contest) => ({
   platform: contestPlatform,
   startTime: contest.startTimeSeconds,
   endTime: contest.startTimeSeconds + contest.durationSeconds,
+  isLive:
+    getCurrentTimeInSeconds() >= contest.startTimeSeconds &&
+    getCurrentTimeInSeconds() <=
+      contest.startTimeSeconds + contest.durationSeconds
+      ? true
+      : false,
 });
 
-const codeforces = () =>
+const codeforces = () => {
   axios
     .get(codeforcesAPIURL, { timeout: 15000 })
-    .then((res) => res.data.result.filter(isContestActive).map(convertToFormat))
+    .then(
+      (res) =>
+        (contestList[contestPlatform] = res.data.result
+          .filter(isContestActive)
+          .map(convertToFormat))
+    )
     .catch(parserErrorHandler(contestPlatform));
-
+  return list;
+};
 module.exports = codeforces;

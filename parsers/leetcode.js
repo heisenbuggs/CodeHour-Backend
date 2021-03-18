@@ -16,16 +16,25 @@ const convertToFormat = (contest) => ({
   platform: contestPlatform,
   startTime: contest.start_time,
   endTime: contest.start_time + contest.duration,
+  isLive:
+    getCurrentTimeInSeconds() >= contest.start_time &&
+    getCurrentTimeInSeconds() <= contest.start_time + contest.duration
+      ? true
+      : false,
 });
 
-const leetcode = () =>
+const leetcode = () => {
+  var list = {};
   axios
     .get(leetcodeAPIURL, { timeout: 15000 })
-    .then((res) =>
-      res.data.contests
-        .filter(isContestActive(getCurrentTimeInSeconds()))
-        .map(convertToFormat)
+    .then(
+      (res) =>
+        (list["Leetcode"] = res.data.contests
+          .filter(isContestActive(getCurrentTimeInSeconds()))
+          .map(convertToFormat))
     )
     .catch(parserErrorHandler(contestPlatform));
+    return list;
+};
 
 module.exports = leetcode;

@@ -1,5 +1,8 @@
 const axios = require("axios");
-const { parserErrorHandler } = require("../utils/utils");
+const {
+  parserErrorHandler,
+  getCurrentTimeInSeconds,
+} = require("../utils/utils");
 
 const contestPlatform = "Topcoder";
 const topcoderAPIURL =
@@ -11,17 +14,28 @@ const convertToFormat = (contest) => ({
   platform: contestPlatform,
   startTime: new Date(contest.start.dateTime).getTime() / 1000,
   endTime: new Date(contest.end.dateTime).getTime() / 1000,
+  isLive:
+    getCurrentTimeInSeconds() >=
+      new Date(contest.start.dateTime).getTime() / 1000 &&
+    getCurrentTimeInSeconds() <= new Date(contest.end.dateTime).getTime() / 1000
+      ? true
+      : false,
 });
 
 const hasStartAndEndDateTime = (it) =>
   it.start && it.start.dateTime && it.end && it.end.dateTime;
 
-const topcoder = () =>
+const topcoder = () => {
+  var list = {};
   axios
     .get(topcoderAPIURL, { timeout: 15000 })
     .then((res) =>
-      res.data.items.filter(hasStartAndEndDateTime).map(convertToFormat)
+      list[contestPlatform] = (
+        res.data.items.filter(hasStartAndEndDateTime).map(convertToFormat)
+      )
     )
     .catch(parserErrorHandler(contestPlatform));
+  return list;
+};
 
 module.exports = topcoder;
