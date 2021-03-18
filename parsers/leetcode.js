@@ -8,7 +8,7 @@ const contestPlatform = "Leetcode";
 const leetcodeAPIURL = "https://leetcode.com/contest/api/list";
 
 const isContestActive = (currTime) => (contest) =>
-  contest.start_time + constest.duration > currTime;
+  contest.start_time + contest.duration > currTime;
 
 const convertToFormat = (contest) => ({
   name: contest.title,

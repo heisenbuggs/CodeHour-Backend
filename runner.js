@@ -7,8 +7,6 @@ const topcoder = require("./parsers/topcoder");
 const leetcode = require("./parsers/leetcode");
 const csacademy = require("./parsers/csacademy");
 
-var contestList = [{}];
-
 const runner = () =>
   axios
     .all([codeforces(), hackerearth(), csacademy(), leetcode(), topcoder()])
@@ -17,4 +15,4 @@ const runner = () =>
         contest.filter((it) => Array.isArray(it))
       );
     });
-module.exports = { runner, contestList };
+module.exports = runner;

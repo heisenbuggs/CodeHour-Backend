@@ -11,7 +11,7 @@ const convertToFormat = (contest) => ({
   url: `https://codeforces.com/contests/${contest.id}`,
   platform: contestPlatform,
   startTime: contest.startTimeSeconds,
-  endTime: contest.startTimeSeconds + contestdurationSeconds,
+  endTime: contest.startTimeSeconds + contest.durationSeconds,
 });
 
 const codeforces = () =>
