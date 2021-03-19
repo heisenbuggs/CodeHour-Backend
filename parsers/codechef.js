@@ -44,22 +44,23 @@ const codechef = () => {
             .slice(1);
         }
       }
-      let contests = contestTables["Present Coding Contests"]
-        .map((i, elem) => parseContestDetails($, elem))
-        .get();
+      let contests = contestTables["Present Coding Contests"].map((i, elem) =>
+        parseContestDetails($, elem).get()
+      );
+      // console.log(contestTables);
 
       contests = contests.concat(
-        contestTables["Upcoming Coding Contests"]
-          .map((i, elem) => parseContestDetails($, elem))
-          .get()
+        contestTables["Upcoming Coding Contests"].map((i, elem) =>
+          parseContestDetails($, elem)
+        )
       );
       list["Codechef"] = contests;
-      console.log(list);
-      return list;
+      // console.log(contests);
     })
     .catch((error) => {
       console.log("Codechef: ", error.toString());
     });
+  return list;
 };
 
 module.exports = codechef;
