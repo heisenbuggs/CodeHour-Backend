@@ -23,10 +23,15 @@ const convertToFormat = (contest) => ({
 });
 
 const hasStartAndEndDateTime = (it) =>
-  it.start && it.start.dateTime && it.end && it.end.dateTime;
+  it.start &&
+  it.start.dateTime &&
+  it.end &&
+  it.end.dateTime &&
+  (new Date(it.start.dateTime).getTime() / 1000) >=
+    getCurrentTimeInSeconds();
 
 const topcoder = () => {
-  var list = {};
+  var list = {}, con = {};
   axios
     .get(topcoderAPIURL, { timeout: 15000 })
     .then((res) =>
@@ -35,7 +40,7 @@ const topcoder = () => {
       )
     )
     .catch(parserErrorHandler(contestPlatform));
-  return list;
+   return list;
 };
 
 module.exports = topcoder;

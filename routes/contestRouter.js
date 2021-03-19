@@ -2,7 +2,6 @@ const express = require("express");
 const Contests = require("../models/contests");
 const verifyUser = require("../authenticate").verifyUser;
 const runner = require("../runner");
-const codechef = require("../parsers/codechef");
 var cron = require("node-cron");
 
 const contestRouter = express.Router();

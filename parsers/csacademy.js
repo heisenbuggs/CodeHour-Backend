@@ -22,6 +22,7 @@ const convertToFormat = (contest) => ({
 
 const csacademy = () => {
   var list = {};
+  var x = getCurrentTimeInSeconds();
   const options = {
     headers: {
       "x-requested-with": "XMLHttpRequest",
@@ -33,7 +34,7 @@ const csacademy = () => {
     .then(
       (res) =>
         (list[contestPlatform] = res.data.state.Contest.filter(
-          (contest) => contest.startTime != null
+          (contest) => {contest.startTime != null && contest.startTime>=x}
         ).map((contest) => convertToFormat(contest)))
     )
     .catch(parserErrorHandler(contestPlatform));

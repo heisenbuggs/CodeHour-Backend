@@ -7,12 +7,12 @@ const atcoder = require("./parsers/atcoder");
 const codechef = require("./parsers/codechef");
 
 const runner = () => {
+  var acList = atcoder();
   var cfList = codeforces();
   var heList = hackerearth();
   var tcList = topcoder();
   var lcList = leetcode();
   var csaList = csacademy();
-  var acList = atcoder();
   var ccList = codechef();
   var contestList = {
     acList,

@@ -31,7 +31,8 @@ const calcStartTimeUTC = (datetimeString) => {
 };
 
 const atcoder = () => {
-  var list = {};
+  var list = {};;
+  var con = {};
   const config = {
     timeout: 30000,
     headers: {
@@ -69,13 +70,10 @@ const atcoder = () => {
         })
         .get();
       var x = getCurrentTimeInSeconds();
-      // console.log(x);
-      var con = {};
       con[contestPlatform] = list["Atcoder"].filter((el) => el.startTime>=x);
-      console.log(con);
-      return con;
     })
     .catch(parserErrorHandler(contestPlatform));
+    return con;
 };
 
 module.exports = atcoder;
