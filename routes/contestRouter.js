@@ -1,15 +1,17 @@
 const express = require("express");
 const Contests = require("../models/contests");
 const verifyUser = require("../authenticate").verifyUser;
-const hackerearth = require("../parsers/hackerearth");
-const leetcode = require("../parsers/leetcode");
-const codeforces = require("../parsers/codeforces");
 const runner = require("../runner");
+const codechef = require("../parsers/codechef");
+var cron = require("node-cron");
 
 const contestRouter = express.Router();
 contestRouter.use(express.json());
 
 var contestList = runner();
+cron.schedule('* 1 * * *', () => {
+  contestList = runner();
+});
 
 contestRouter.route("/").get(verifyUser, (req, res, next) => {
   Contests.find({})

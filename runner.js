@@ -3,6 +3,8 @@ const hackerearth = require("./parsers/hackerearth");
 const topcoder = require("./parsers/topcoder");
 const leetcode = require("./parsers/leetcode");
 const csacademy = require("./parsers/csacademy");
+const atcoder = require("./parsers/atcoder");
+const codechef = require("./parsers/codechef");
 
 const runner = () => {
   var cfList = codeforces();
@@ -10,7 +12,11 @@ const runner = () => {
   var tcList = topcoder();
   var lcList = leetcode();
   var csaList = csacademy();
+  var acList = atcoder();
+  var ccList = codechef();
   var contestList = {
+    acList,
+    ccList,
     cfList,
     heList,
     tcList,
